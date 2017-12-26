@@ -31,4 +31,5 @@ public class Parser {
   public void renderLocations(List<Location> locations) {
     System.out.println(locations.toString());
   }
+
 }

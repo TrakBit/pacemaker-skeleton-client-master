@@ -2,6 +2,8 @@ package models;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import com.google.common.base.Objects;
 
 public class Activity implements Serializable {
@@ -10,6 +12,16 @@ public class Activity implements Serializable {
   public String type;
   public String location;
   public double distance;
+
+  public ArrayList<Location> getRoute() {
+    return route;
+  }
+
+  public void setRoute(ArrayList<Location> route) {
+    this.route = route;
+  }
+
+  public ArrayList<Location> route;
 
   public Activity() {
   }

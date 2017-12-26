@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import models.Activity;
+import models.Location;
 import models.User;
 import parsers.AsciiTableParser;
 import parsers.Parser;
@@ -26,8 +27,9 @@ public class PacemakerConsoleService {
 
   @Command(name="ru", description = "Register: Create an account for a new user")
   public void register(@Param(name = "first name") String firstName,
-      @Param(name = "last name") String lastName, @Param(name = "email") String email,
-      @Param(name = "password") String password) {
+                       @Param(name = "last name") String lastName,
+                       @Param(name = "email") String email,
+                       @Param(name = "password") String password) {
     console.renderUser(paceApi.createUser(firstName, lastName, email, password));
   }
 
@@ -38,7 +40,7 @@ public class PacemakerConsoleService {
 
   @Command(name="lu", description = "Login: Log in a registered user in to pacemaker")
   public void login(@Param(name = "email") String email,
-      @Param(name = "password") String password) {
+                    @Param(name = "password") String password) {
     Optional<User> user = Optional.fromNullable(paceApi.getUserByEmail(email));
     if (user.isPresent()) {
       if (user.get().password.equals(password)) {
@@ -60,7 +62,8 @@ public class PacemakerConsoleService {
 
   @Command(name="aa", description = "Add activity: create and add an activity for the logged in user")
   public void addActivity(@Param(name = "type") String type,
-      @Param(name = "location") String location, @Param(name = "distance") double distance) {
+                          @Param(name = "location") String location,
+                          @Param(name = "distance") double distance) {
     Optional<User> user = Optional.fromNullable(loggedInUser);
     if (user.isPresent()) {
       console.renderActivity(paceApi.createActivity(user.get().id, type, location, distance));
@@ -77,9 +80,10 @@ public class PacemakerConsoleService {
 
   // Baseline Commands
 
-  @Command(description = "Add location: Append location to an activity")
+  @Command(name="al", description = "Add location: Append location to an activity")
   public void addLocation(@Param(name = "activity-id") String id,
-      @Param(name = "longitude") double longitude, @Param(name = "latitude") double latitude) {
+                          @Param(name = "longitude") double longitude,
+                          @Param(name = "latitude") double latitude) {
     Optional<Activity> activity = Optional.fromNullable(paceApi.getActivity(loggedInUser.getId(), id));
     if (activity.isPresent()) {
       paceApi.addLocation(loggedInUser.getId(), activity.get().id, latitude, longitude);
@@ -119,12 +123,14 @@ public class PacemakerConsoleService {
     }
   }
 
-  @Command(description = "List all locations for a specific activity")
+  @Command(name="lal",description = "List all locations for a specific activity")
   public void listActivityLocations(@Param(name = "activity-id") String id) {
  
     Optional<Activity> activity = Optional.fromNullable(paceApi.getActivity(loggedInUser.getId(), id));
     if (activity.isPresent()) {
-      // console.renderLocations(activity.get().route);
+      System.out.println(loggedInUser.getId() + "****" + id);
+      List<Location> locations = paceApi.getLocations(loggedInUser.getId(), id);
+      console.renderLocations(locations);
     }
   }
 
