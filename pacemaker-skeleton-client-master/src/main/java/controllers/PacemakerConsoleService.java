@@ -24,7 +24,7 @@ public class PacemakerConsoleService {
 
   // Starter Commands
 
-  @Command(description = "Register: Create an account for a new user")
+  @Command(name="ru", description = "Register: Create an account for a new user")
   public void register(@Param(name = "first name") String firstName,
       @Param(name = "last name") String lastName, @Param(name = "email") String email,
       @Param(name = "password") String password) {
@@ -36,7 +36,7 @@ public class PacemakerConsoleService {
     console.renderUsers(paceApi.getUsers());
   }
 
-  @Command(description = "Login: Log in a registered user in to pacemaker")
+  @Command(name="lu", description = "Login: Log in a registered user in to pacemaker")
   public void login(@Param(name = "email") String email,
       @Param(name = "password") String password) {
     Optional<User> user = Optional.fromNullable(paceApi.getUserByEmail(email));
@@ -51,14 +51,14 @@ public class PacemakerConsoleService {
     }
   }
 
-  @Command(description = "Logout: Logout current user")
+  @Command(name="l", description = "Logout: Logout current user")
   public void logout() {
     console.println("Logging out " + loggedInUser.email);
     console.println("ok");
     loggedInUser = null;
   }
 
-  @Command(description = "Add activity: create and add an activity for the logged in user")
+  @Command(name="aa", description = "Add activity: create and add an activity for the logged in user")
   public void addActivity(@Param(name = "type") String type,
       @Param(name = "location") String location, @Param(name = "distance") double distance) {
     Optional<User> user = Optional.fromNullable(loggedInUser);
@@ -67,13 +67,12 @@ public class PacemakerConsoleService {
     }
   }
 
-  @Command(description = "List Activities: List all activities for logged in user")
+  @Command(name="la", description = "List Activities: List all activities for logged in user")
   public void listActivities() {
     Optional<User> user = Optional.fromNullable(loggedInUser);
     if (user.isPresent()) {
       console.renderActivities(paceApi.getActivities(user.get().id));
     }
-
   }
 
   // Baseline Commands
