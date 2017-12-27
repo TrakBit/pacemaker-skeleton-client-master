@@ -93,7 +93,7 @@ public class PacemakerConsoleService {
     }
   }
 
-  @Command(
+  @Command(name="ar",
       description = "ActivityReport: List all activities for logged in user, sorted alphabetically by type")
   public void activityReport() {
     Optional<User> user = Optional.fromNullable(loggedInUser);

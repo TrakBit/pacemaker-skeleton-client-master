@@ -36,6 +36,9 @@ interface PacemakerInterface {
   @GET("/users/{id}/activities")
   Call<List<Activity>> getActivities(@Path("id") String id);
 
+  @GET("/users/{id}/activityReport")
+  Call<List<Activity>> getActivityReport(@Path("id") String id);
+
   @POST("/users/{id}/activities")
   Call<Activity> addActivity(@Path("id") String id, @Body Activity activity);
 
@@ -117,7 +120,15 @@ public class PacemakerAPI {
   }
 
   public List<Activity> listActivities(String userId, String sortBy) {
-    return null;
+    List<Activity> activities = null;
+    try {
+      Call<List<Activity>> call = pacemakerInterface.getActivityReport(userId);
+      Response<List<Activity>> response = call.execute();
+      activities = response.body();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    return activities;
   }
 
   public Activity getActivity(String userId, String activityId) {
