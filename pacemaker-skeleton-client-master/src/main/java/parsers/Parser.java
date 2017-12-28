@@ -3,6 +3,7 @@ package parsers;
 import java.util.Collection;
 import java.util.List;
 import models.Activity;
+import models.Friend;
 import models.Location;
 import models.User;
 
@@ -30,6 +31,10 @@ public class Parser {
 
   public void renderLocations(List<Location> locations) {
     System.out.println(locations.toString());
+  }
+
+  public void renderFriends(List<Friend> friends) {
+    System.out.println(friends.toString());
   }
 
 }

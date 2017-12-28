@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import models.Activity;
+import models.Friend;
 import models.Location;
 import models.User;
 import parsers.AsciiTableParser;
@@ -137,8 +138,11 @@ public class PacemakerConsoleService {
     paceApi.follow(loggedInUser.id,email);
   }
 
-  @Command(description = "List Friends: List all of the friends of the logged in user")
-  public void listFriends() {}
+  @Command(name="lf", description = "List Friends: List all of the friends of the logged in user")
+  public void listFriends() {
+    List<Friend> friends = paceApi.listFriends(loggedInUser.id);
+    console.renderFriends(friends);
+  }
 
   @Command(
       description = "Friend Activity Report: List all activities of specific friend, sorted alphabetically by type)")
