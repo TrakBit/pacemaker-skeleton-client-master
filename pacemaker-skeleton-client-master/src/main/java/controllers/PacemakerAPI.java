@@ -39,6 +39,9 @@ interface PacemakerInterface {
   @GET("/users/{id}/activityReport")
   Call<List<Activity>> getActivityReport(@Path("id") String id);
 
+  @POST("/users/{id}/follow/{email}")
+  Call<List<Activity>> follow(@Path("id") String id, @Path("email") String email);
+
   @POST("/users/{id}/activities")
   Call<Activity> addActivity(@Path("id") String id, @Body Activity activity);
 
@@ -216,5 +219,14 @@ public class PacemakerAPI {
       System.out.println(e.getMessage());
     }
     return user;
+  }
+
+  public void follow(String id,String email) {
+      try {
+          Call<List<Activity>> call = pacemakerInterface.follow(id, email);
+          Response<List<Activity>> response = call.execute();
+      } catch (Exception e) {
+          System.out.println(e.getMessage());
+      }
   }
 }

@@ -125,17 +125,17 @@ public class PacemakerConsoleService {
 
   @Command(name="lal",description = "List all locations for a specific activity")
   public void listActivityLocations(@Param(name = "activity-id") String id) {
- 
     Optional<Activity> activity = Optional.fromNullable(paceApi.getActivity(loggedInUser.getId(), id));
     if (activity.isPresent()) {
-      System.out.println(loggedInUser.getId() + "****" + id);
       List<Location> locations = paceApi.getLocations(loggedInUser.getId(), id);
       console.renderLocations(locations);
     }
   }
 
-  @Command(description = "Follow Friend: Follow a specific friend")
-  public void follow(@Param(name = "email") String email) {}
+  @Command(name="f", description = "Follow Friend: Follow a specific friend")
+  public void follow(@Param(name = "email") String email) {
+    paceApi.follow(loggedInUser.id,email);
+  }
 
   @Command(description = "List Friends: List all of the friends of the logged in user")
   public void listFriends() {}
