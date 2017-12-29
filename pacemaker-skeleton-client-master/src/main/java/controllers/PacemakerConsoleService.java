@@ -104,6 +104,7 @@ public class PacemakerConsoleService {
   }
 
   @Command(
+      name="ar",
       description = "Activity Report: List all activities for logged in user by type. Sorted longest to shortest distance")
   public void activityReport(@Param(name = "byType: type") String type) {
     Optional<User> user = Optional.fromNullable(loggedInUser);
