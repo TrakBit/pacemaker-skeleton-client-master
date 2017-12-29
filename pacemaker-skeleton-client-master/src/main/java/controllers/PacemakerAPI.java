@@ -67,6 +67,10 @@ interface PacemakerInterface {
 
     @GET("/users/{id}/friends")
     Call<List<Friend>> listFriends(@Path("id") String id);
+
+    @GET("/users/{id}/friendActivityReport/{email}")
+    Call<List<Activity>> friendActivityReport(@Path("id") String id,
+                                              @Path("email") String email);
 }
 
 
@@ -250,5 +254,17 @@ public class PacemakerAPI {
             System.out.println(e.getMessage());
         }
         return friends;
+    }
+
+    public List<Activity> friendActivityReport(String id, String email) {
+        List<Activity> activities = null;
+        try {
+            Call<List<Activity>> call = pacemakerInterface.friendActivityReport(id, email);
+            Response<List<Activity>> response = call.execute();
+            activities = response.body();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return activities;
     }
 }

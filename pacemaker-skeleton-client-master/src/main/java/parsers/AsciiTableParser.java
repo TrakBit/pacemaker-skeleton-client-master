@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import models.Activity;
+import models.Friend;
 import models.Location;
 import models.User;
 
@@ -29,6 +30,22 @@ public class AsciiTableParser extends Parser {
         IASCIITableAware asciiTableAware = new CollectionASCIITableAware<User>(userList, "id",
             "firstname",
             "lastname", "email");
+        System.out.println(ASCIITable.getInstance().getTable(asciiTableAware));
+      }
+      System.out.println("ok");
+    } else {
+      System.out.println("not found");
+    }
+  }
+
+  public void renderFriends(Collection<Friend> friends) {
+    if (friends != null) {
+      if (!friends.isEmpty()) {
+        List<Friend> friendsList = new ArrayList(friends);
+        List<User> userList = new ArrayList<>();
+        friendsList.forEach(friend -> userList.add(friend.friend));
+        IASCIITableAware asciiTableAware = new CollectionASCIITableAware<>(userList, "id",
+                "firstname", "lastname", "email");
         System.out.println(ASCIITable.getInstance().getTable(asciiTableAware));
       }
       System.out.println("ok");

@@ -144,9 +144,12 @@ public class PacemakerConsoleService {
     console.renderFriends(friends);
   }
 
-  @Command(
-      description = "Friend Activity Report: List all activities of specific friend, sorted alphabetically by type)")
-  public void friendActivityReport(@Param(name = "email") String email) {}
+  @Command(name="far",
+           description = "Friend Activity Report: List all activities of specific friend, sorted alphabetically by type)")
+  public void friendActivityReport(@Param(name = "email") String email) {
+    List<Activity> activities = paceApi.friendActivityReport(loggedInUser.id, email);
+    console.renderActivities(activities);
+  }
 
   // Good Commands
 

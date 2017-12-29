@@ -33,8 +33,7 @@ public class Parser {
     System.out.println(locations.toString());
   }
 
-  public void renderFriends(List<Friend> friends) {
+  public void renderFriends(Collection<Friend> friends) {
     System.out.println(friends.toString());
   }
-
 }
