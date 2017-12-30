@@ -14,6 +14,19 @@ public class User implements Serializable {
     public String lastname;
     public String email;
     public String password;
+    public List<Friend> friends;
+    public List<String> messages;
+
+    public User() {
+    }
+
+    public List<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
+    }
 
     public List<Friend> getFriends() {
         return friends;
@@ -21,11 +34,6 @@ public class User implements Serializable {
 
     public void setFriends(List<Friend> friends) {
         this.friends = friends;
-    }
-
-    public List<Friend> friends;
-
-    public User() {
     }
 
     public String getId() {

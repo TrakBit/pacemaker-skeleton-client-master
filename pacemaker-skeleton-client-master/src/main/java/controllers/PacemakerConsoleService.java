@@ -157,9 +157,12 @@ public class PacemakerConsoleService {
   @Command(description = "Unfollow Friends: Stop following a friend")
   public void unfollowFriend() {}
 
-  @Command(description = "Message Friend: send a message to a friend")
+  @Command(name="mf",
+           description = "Message Friend: send a message to a friend")
   public void messageFriend(@Param(name = "email") String email,
-      @Param(name = "message") String message) {}
+                            @Param(name = "message") String message) {
+    paceApi.messageFriend(loggedInUser.id,email, message);
+  }
 
   @Command(description = "List Messages: List all messages for the logged in user")
   public void listMessages() {}
