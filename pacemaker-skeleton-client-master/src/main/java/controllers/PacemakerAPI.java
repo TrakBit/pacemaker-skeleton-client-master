@@ -5,10 +5,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.Activity;
-import models.Friend;
-import models.Location;
-import models.User;
+import models.*;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -76,6 +73,9 @@ interface PacemakerInterface {
     @GET("/users/{id}/friendActivityReport/{email}")
     Call<List<Activity>> friendActivityReport(@Path("id") String id,
                                               @Path("email") String email);
+
+    @GET("/users/{id}/listMessages")
+    Call<List<String>> listMessages(@Path("id") String id);
 }
 
 
@@ -277,6 +277,18 @@ public class PacemakerAPI {
         List<String> messages = null;
         try {
             Call<List<String>> call = pacemakerInterface.messageFriend(id, email, message);
+            Response<List<String>> response = call.execute();
+            messages = response.body();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return messages;
+    }
+
+    public List<String> listMessages(String id) {
+        List<String> messages = null;
+        try {
+            Call<List<String>> call = pacemakerInterface.listMessages(id);
             Response<List<String>> response = call.execute();
             messages = response.body();
         } catch (Exception e) {

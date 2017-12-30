@@ -1,16 +1,15 @@
 package parsers;
 
 import com.bethecoder.ascii_table.ASCIITable;
+import com.bethecoder.ascii_table.ASCIITableHeader;
 import com.bethecoder.ascii_table.impl.CollectionASCIITableAware;
 import com.bethecoder.ascii_table.spec.IASCIITableAware;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import models.Activity;
-import models.Friend;
-import models.Location;
-import models.User;
+
+import models.*;
 
 public class AsciiTableParser extends Parser {
 
@@ -85,6 +84,17 @@ public class AsciiTableParser extends Parser {
             "id",
             "latitude", "longitude");
         System.out.println(ASCIITable.getInstance().getTable(asciiTableAware));
+      }
+      System.out.println("ok");
+    } else {
+      System.out.println("not found");
+    }
+  }
+
+  public void renderMessages(List<String> messages) {
+    if (messages != null) {
+      if (!messages.isEmpty()) {
+          messages.forEach(msg ->  System.out.println(msg));
       }
       System.out.println("ok");
     } else {

@@ -9,10 +9,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import models.Activity;
-import models.Friend;
-import models.Location;
-import models.User;
+
+import models.*;
 import parsers.AsciiTableParser;
 import parsers.Parser;
 
@@ -164,8 +162,12 @@ public class PacemakerConsoleService {
     paceApi.messageFriend(loggedInUser.id,email, message);
   }
 
-  @Command(description = "List Messages: List all messages for the logged in user")
-  public void listMessages() {}
+  @Command(name="lm",
+           description = "List Messages: List all messages for the logged in user")
+  public void listMessages() {
+      List<String> messages = paceApi.listMessages(loggedInUser.id);
+      console.renderMessages(messages);
+  }
 
   @Command(
       description = "Distance Leader Board: list summary distances of all friends, sorted longest to shortest")
