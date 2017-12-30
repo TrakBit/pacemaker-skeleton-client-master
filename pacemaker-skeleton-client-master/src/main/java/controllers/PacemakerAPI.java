@@ -76,6 +76,10 @@ interface PacemakerInterface {
 
     @GET("/users/{id}/listMessages")
     Call<List<String>> listMessages(@Path("id") String id);
+
+    @POST("/users/{id}/messageAll")
+    Call<List<String>> messageAllFriends(@Path("id")String id,
+                                         @Body String message);
 }
 
 
@@ -295,5 +299,14 @@ public class PacemakerAPI {
             System.out.println(e.getMessage());
         }
         return messages;
+    }
+
+    public void messageAllFriends(String id, String message) {
+        try {
+            Call<List<String>> call = pacemakerInterface.messageAllFriends(id, message);
+            call.execute();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

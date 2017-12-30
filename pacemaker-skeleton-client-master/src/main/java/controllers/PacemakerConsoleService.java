@@ -178,8 +178,11 @@ public class PacemakerConsoleService {
   @Command(description = "Distance Leader Board: distance leader board refined by type")
   public void distanceLeaderBoardByType(@Param(name = "byType: type") String type) {}
 
-  @Command(description = "Message All Friends: send a message to all friends")
-  public void messageAllFriends(@Param(name = "message") String message) {}
+  @Command(name="maf",
+           description = "Message All Friends: send a message to all friends")
+  public void messageAllFriends(@Param(name = "message") String message) {
+    paceApi.messageAllFriends(loggedInUser.id, message);
+  }
 
   @Command(
       description = "Location Leader Board: list sorted summary distances of all friends in named location")
