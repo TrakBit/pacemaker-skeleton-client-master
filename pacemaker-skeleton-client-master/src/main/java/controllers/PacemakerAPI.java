@@ -10,11 +10,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.*;
 
 interface PacemakerInterface {
     @GET("/users")
@@ -41,6 +37,10 @@ interface PacemakerInterface {
     @POST("/users/{id}/follow/{email}")
     Call<List<User>> follow(@Path("id") String id,
                             @Path("email") String email);
+
+    @POST("/users/{id}/unfollow/{email}")
+    Call<Friend> unfollow(@Path("id") String id,
+                                @Path("email") String email);
 
     @POST("/users/{id}/activities")
     Call<Activity> addActivity(@Path("id") String id,
@@ -353,5 +353,14 @@ public class PacemakerAPI {
             System.out.println(e.getMessage());
         }
         return leaderBoard;
+    }
+
+    public void unfollow(String id, String email) {
+        try {
+            Call<Friend> call = pacemakerInterface.unfollow(id, email);
+            call.execute();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

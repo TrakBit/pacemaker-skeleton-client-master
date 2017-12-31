@@ -26,7 +26,8 @@ public class PacemakerConsoleService {
 
     // Starter Commands
 
-    @Command(name = "ru", description = "Register: Create an account for a new user")
+    @Command(name = "ru",
+             description = "Register: Create an account for a new user")
     public void register(@Param(name = "first name") String firstName,
                          @Param(name = "last name") String lastName,
                          @Param(name = "email") String email,
@@ -34,12 +35,14 @@ public class PacemakerConsoleService {
         console.renderUser(paceApi.createUser(firstName, lastName, email, password));
     }
 
-    @Command(name = "gu", description = "List Users: List all users emails, first and last names")
+    @Command(name = "gu",
+             description = "List Users: List all users emails, first and last names")
     public void listUsers() {
         console.renderUsers(paceApi.getUsers());
     }
 
-    @Command(name = "lu", description = "Login: Log in a registered user in to pacemaker")
+    @Command(name = "lu",
+             description = "Login: Log in a registered user in to pacemaker")
     public void login(@Param(name = "email") String email,
                       @Param(name = "password") String password) {
         Optional<User> user = Optional.fromNullable(paceApi.getUserByEmail(email));
@@ -54,14 +57,16 @@ public class PacemakerConsoleService {
         }
     }
 
-    @Command(name = "l", description = "Logout: Logout current user")
+    @Command(name = "l",
+             description = "Logout: Logout current user")
     public void logout() {
         console.println("Logging out " + loggedInUser.email);
         console.println("ok");
         loggedInUser = null;
     }
 
-    @Command(name = "aa", description = "Add activity: create and add an activity for the logged in user")
+    @Command(name = "aa",
+             description = "Add activity: create and add an activity for the logged in user")
     public void addActivity(@Param(name = "type") String type,
                             @Param(name = "location") String location,
                             @Param(name = "distance") double distance) {
@@ -71,7 +76,8 @@ public class PacemakerConsoleService {
         }
     }
 
-    @Command(name = "la", description = "List Activities: List all activities for logged in user")
+    @Command(name = "la",
+             description = "List Activities: List all activities for logged in user")
     public void listActivities() {
         Optional<User> user = Optional.fromNullable(loggedInUser);
         if (user.isPresent()) {
@@ -81,7 +87,8 @@ public class PacemakerConsoleService {
 
     // Baseline Commands
 
-    @Command(name = "al", description = "Add location: Append location to an activity")
+    @Command(name = "al",
+             description = "Add location: Append location to an activity")
     public void addLocation(@Param(name = "activity-id") String id,
                             @Param(name = "longitude") double longitude,
                             @Param(name = "latitude") double latitude) {
@@ -95,7 +102,8 @@ public class PacemakerConsoleService {
     }
 
     @Command(name = "ar",
-            description = "ActivityReport: List all activities for logged in user, sorted alphabetically by type")
+             description = "ActivityReport: List all activities for logged in user," +
+                    " sorted alphabetically by type")
     public void activityReport() {
         Optional<User> user = Optional.fromNullable(loggedInUser);
         if (user.isPresent()) {
@@ -105,7 +113,8 @@ public class PacemakerConsoleService {
 
     @Command(
             name = "ar",
-            description = "Activity Report: List all activities for logged in user by type. Sorted longest to shortest distance")
+            description = "Activity Report: List all activities for logged in user by type. " +
+                    "Sorted longest to shortest distance")
     public void activityReport(@Param(name = "byType: type") String type) {
         Optional<User> user = Optional.fromNullable(loggedInUser);
         if (user.isPresent()) {
@@ -125,7 +134,8 @@ public class PacemakerConsoleService {
         }
     }
 
-    @Command(name = "lal", description = "List all locations for a specific activity")
+    @Command(name = "lal",
+             description = "List all locations for a specific activity")
     public void listActivityLocations(@Param(name = "activity-id") String id) {
         Optional<Activity> activity = Optional.fromNullable(paceApi.getActivity(loggedInUser.getId(), id));
         if (activity.isPresent()) {
@@ -146,7 +156,8 @@ public class PacemakerConsoleService {
     }
 
     @Command(name = "far",
-            description = "Friend Activity Report: List all activities of specific friend, sorted alphabetically by type)")
+             description = "Friend Activity Report: List all activities of specific friend," +
+                    " sorted alphabetically by type)")
     public void friendActivityReport(@Param(name = "email") String email) {
         List<Activity> activities = paceApi.friendActivityReport(loggedInUser.id, email);
         console.renderActivities(activities);
@@ -154,8 +165,10 @@ public class PacemakerConsoleService {
 
     // Good Commands
 
-    @Command(description = "Unfollow Friends: Stop following a friend")
-    public void unfollowFriend() {
+    @Command(name="uf",
+             description = "Unfollow Friends: Stop following a friend")
+    public void unfollowFriend(@Param(name="email") String email) {
+        paceApi.unfollow(loggedInUser.id, email);
     }
 
     @Command(name = "mf",
@@ -187,13 +200,13 @@ public class PacemakerConsoleService {
     }
 
     @Command(name = "maf",
-            description = "Message All Friends: send a message to all friends")
+             description = "Message All Friends: send a message to all friends")
     public void messageAllFriends(@Param(name = "message") String message) {
         paceApi.messageAllFriends(loggedInUser.id, message);
     }
 
     @Command(name = "llb",
-            description = "Location Leader Board: list sorted summary distances of all friends in named location")
+             description = "Location Leader Board: list sorted summary distances of all friends in named location")
     public void locationLeaderBoard(@Param(name = "location") String location) {
         console.renderLeaderBoard(paceApi.locationLeaderBoard(location));
     }
