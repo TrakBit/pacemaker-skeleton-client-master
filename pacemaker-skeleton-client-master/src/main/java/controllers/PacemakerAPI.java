@@ -83,6 +83,9 @@ interface PacemakerInterface {
 
     @GET("/users/leaderBoard")
     Call<List<LeaderBoard>> distanceLeaderBoard();
+
+    @GET("/users/leaderBoard/{location}")
+    Call<List<LeaderBoard>> locationLeaderBoard(@Path("location") String location);
 }
 
 
@@ -317,6 +320,18 @@ public class PacemakerAPI {
         List<LeaderBoard> leaderBoard = null;
         try {
             Call<List<LeaderBoard>> call = pacemakerInterface.distanceLeaderBoard();
+            Response<List<LeaderBoard>> response = call.execute();
+            leaderBoard = response.body();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return leaderBoard;
+    }
+
+    public List<LeaderBoard> locationLeaderBoard(String location) {
+        List<LeaderBoard> leaderBoard = null;
+        try {
+            Call<List<LeaderBoard>> call = pacemakerInterface.locationLeaderBoard(location);
             Response<List<LeaderBoard>> response = call.execute();
             leaderBoard = response.body();
         } catch (Exception e) {
