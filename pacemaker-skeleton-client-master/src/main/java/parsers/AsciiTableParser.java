@@ -91,6 +91,20 @@ public class AsciiTableParser extends Parser {
     }
   }
 
+  public void renderLeaderBoard(List<LeaderBoard> leaderBoards) {
+    if (leaderBoards != null) {
+      if (!leaderBoards.isEmpty()) {
+        IASCIITableAware asciiTableAware = new CollectionASCIITableAware<LeaderBoard>(leaderBoards,
+                "email",
+                "score");
+        System.out.println(ASCIITable.getInstance().getTable(asciiTableAware));
+      }
+      System.out.println("ok");
+    } else {
+      System.out.println("not found");
+    }
+  }
+
   public void renderMessages(List<String> messages) {
     if (messages != null) {
       if (!messages.isEmpty()) {

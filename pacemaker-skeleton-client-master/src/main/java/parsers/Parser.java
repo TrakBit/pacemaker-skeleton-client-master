@@ -38,4 +38,8 @@ public class Parser {
   public void renderMessages(List<String> messages) {
     System.out.println(messages.toString());
   }
+
+  public void renderLeaderBoard(List<LeaderBoard> leaderBoards) {
+    System.out.println(leaderBoards.toString());
+  }
 }

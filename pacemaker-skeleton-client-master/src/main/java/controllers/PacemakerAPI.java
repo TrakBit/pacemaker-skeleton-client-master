@@ -80,6 +80,9 @@ interface PacemakerInterface {
     @POST("/users/{id}/messageAll")
     Call<List<String>> messageAllFriends(@Path("id")String id,
                                          @Body String message);
+
+    @GET("/users/leaderBoard")
+    Call<List<LeaderBoard>> distanceLeaderBoard();
 }
 
 
@@ -308,5 +311,17 @@ public class PacemakerAPI {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public List<LeaderBoard> distanceLeaderBoard() {
+        List<LeaderBoard> leaderBoard = null;
+        try {
+            Call<List<LeaderBoard>> call = pacemakerInterface.distanceLeaderBoard();
+            Response<List<LeaderBoard>> response = call.execute();
+            leaderBoard = response.body();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return leaderBoard;
     }
 }

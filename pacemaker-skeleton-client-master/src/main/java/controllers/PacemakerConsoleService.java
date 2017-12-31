@@ -169,9 +169,11 @@ public class PacemakerConsoleService {
       console.renderMessages(messages);
   }
 
-  @Command(
-      description = "Distance Leader Board: list summary distances of all friends, sorted longest to shortest")
-  public void distanceLeaderBoard() {}
+  @Command(name="dlb",
+           description = "Distance Leader Board: list summary distances of all friends, sorted longest to shortest")
+  public void distanceLeaderBoard() {
+      console.renderLeaderBoard(paceApi.distanceLeaderBoard());
+  }
 
   // Excellent Commands
 
