@@ -180,8 +180,10 @@ public class PacemakerConsoleService {
 
     // Excellent Commands
 
-    @Command(description = "Distance Leader Board: distance leader board refined by type")
+    @Command(name="dlbbt",
+             description = "Distance Leader Board: distance leader board refined by type")
     public void distanceLeaderBoardByType(@Param(name = "byType: type") String type) {
+        console.renderLeaderBoard(paceApi.distanceLeaderBoardByType(type));
     }
 
     @Command(name = "maf",
