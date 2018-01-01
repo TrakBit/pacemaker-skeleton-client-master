@@ -12,6 +12,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.*;
 
+import javax.security.auth.callback.LanguageCallback;
+
 interface PacemakerInterface {
     @GET("/users")
     Call<List<User>> getUsers();
@@ -35,12 +37,12 @@ interface PacemakerInterface {
     Call<List<Activity>> getActivityReport(@Path("id") String id);
 
     @POST("/users/{id}/follow/{email}")
-    Call<List<User>> follow(@Path("id") String id,
-                            @Path("email") String email);
+    Call<Friend> follow(@Path("id") String id,
+                        @Path("email") String email);
 
     @POST("/users/{id}/unfollow/{email}")
     Call<Friend> unfollow(@Path("id") String id,
-                                @Path("email") String email);
+                          @Path("email") String email);
 
     @POST("/users/{id}/activities")
     Call<Activity> addActivity(@Path("id") String id,
@@ -187,14 +189,16 @@ public class PacemakerAPI {
         }
     }
 
-    public void addLocation(String id, String activityId, double latitude, double longitude) {
+    public Location addLocation(String id, String activityId, double latitude, double longitude) {
+        Location location = null;
         try {
-            Call<Location> call =
-                    pacemakerInterface.addLocation(id, activityId, new Location(latitude, longitude));
-            call.execute();
+            Call<Location> call = pacemakerInterface.addLocation(id, activityId, new Location(latitude, longitude));
+            Response<Location> response = call.execute();
+            location = response.body();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return location;
     }
 
     public List<Location> getLocations(String id, String activityId) {
@@ -253,13 +257,16 @@ public class PacemakerAPI {
         return user;
     }
 
-    public void follow(String id, String email) {
+    public Friend follow(String id, String email) {
+        Friend friend = null;
         try {
-            Call<List<User>> call = pacemakerInterface.follow(id, email);
-            Response<List<User>> response = call.execute();
+            Call<Friend> call = pacemakerInterface.follow(id, email);
+            Response<Friend> response = call.execute();
+            friend = response.body();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return friend;
     }
 
     public List<Friend> listFriends(String id) {

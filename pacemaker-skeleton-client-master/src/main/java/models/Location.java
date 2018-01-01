@@ -21,6 +21,11 @@ public class Location implements Serializable {
   public Location() {
   }
 
+  public Location(double latitude, double longitude) {
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
+
   public double getLongitude() {
     return longitude;
   }
@@ -29,10 +34,6 @@ public class Location implements Serializable {
     return latitude;
   }
 
-  public Location(double latitude, double longitude) {
-    this.latitude = latitude;
-    this.longitude = longitude;
-  }
 
 
   @Override
