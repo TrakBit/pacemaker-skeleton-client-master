@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,6 +18,7 @@ public class UserTest {
     PacemakerAPI pacemaker = new PacemakerAPI("http://localhost:7000");
     User homer = new User("homer", "simpson", "homer@simpson.com", "secret");
     User harsh = new User("harsh","vardhan","harsh@gmail.com","secret");
+    User tom = new User("tom","cruise","tom@gmail.com","secret");
 
     @Before
     public void setup() {
@@ -51,4 +53,16 @@ public class UserTest {
         String msg = pacemaker.messageFriend(homer.id, harsh.email, "hello");
         assertEquals("hello",msg);
     }
+
+    @Test
+    public void testListMessage() {
+        homer = pacemaker.createUser(homer.firstname, homer.lastname, homer.email, homer.password);
+        harsh = pacemaker.createUser(harsh.firstname, harsh.lastname, harsh.email, harsh.password);
+        pacemaker.follow(homer.id, harsh.email);
+        pacemaker.messageFriend(homer.id, harsh.email, "hello");
+        List<String> messages = pacemaker.listMessages(harsh.id);
+        assertEquals(1,messages.size());
+    }
+
+
 }

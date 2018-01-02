@@ -41,8 +41,8 @@ interface PacemakerInterface {
                         @Path("email") String email);
 
     @POST("/users/{id}/unfollow/{email}")
-    Call<Friend> unfollow(@Path("id") String id,
-                          @Path("email") String email);
+    Call<User> unfollow(@Path("id") String id,
+                        @Path("email") String email);
 
     @POST("/users/{id}/activities")
     Call<Activity> addActivity(@Path("id") String id,
@@ -355,19 +355,22 @@ public class PacemakerAPI {
         try {
             Call<List<LeaderBoard>> call = pacemakerInterface.distanceLeaderBoardByType(type);
             Response<List<LeaderBoard>> response = call.execute();
-            leaderBoard = response.body();
+            leaderBoard =  response.body();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return leaderBoard;
     }
 
-    public void unfollow(String id, String email) {
+    public User unfollow(String id, String email) {
+        User user = null;
         try {
-            Call<Friend> call = pacemakerInterface.unfollow(id, email);
-            call.execute();
+            Call<User> call = pacemakerInterface.unfollow(id, email);
+            Response<User> response = call.execute();
+            user = response.body();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return user;
     }
 }

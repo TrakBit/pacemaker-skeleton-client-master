@@ -28,6 +28,13 @@ public class FriendTest {
     }
 
     @Test
+    public void testRemoveFriend() {
+        pacemaker.follow(harsh.id, homer.email);
+        User user = pacemaker.unfollow(homer.id, harsh.email);
+        assertEquals(0,user.friends.size());
+    }
+
+    @Test
     public void testListFriends() {
         pacemaker.follow(homer.id, harsh.email);
         List<Friend> friendList = pacemaker.listFriends(homer.id);
