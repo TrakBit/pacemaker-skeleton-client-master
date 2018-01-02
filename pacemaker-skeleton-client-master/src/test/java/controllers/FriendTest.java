@@ -6,6 +6,8 @@ import models.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 public class FriendTest {
 
     PacemakerAPI pacemaker = new PacemakerAPI("http://localhost:7000");
@@ -23,5 +25,12 @@ public class FriendTest {
     public void testCreateFriend() {
         Friend returnedFriend = pacemaker.follow(homer.id, harsh.email);
         assertEquals(returnedFriend.friend, harsh);
+    }
+
+    @Test
+    public void testListFriends() {
+        pacemaker.follow(homer.id, harsh.email);
+        List<Friend> friendList = pacemaker.listFriends(homer.id);
+        assertEquals(1,friendList.size());
     }
 }
