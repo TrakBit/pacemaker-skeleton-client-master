@@ -59,6 +59,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(String id,String firstName, String lastName, String email, String password) {
+        this.id = id;
+        this.firstname = firstName;
+        this.lastname = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof User) {
