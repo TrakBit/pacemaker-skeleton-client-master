@@ -27,4 +27,9 @@ public class LocationTest {
         Location returnedLocation = pacemaker.addLocation(homer.id, activity.id, location.latitude, location.longitude);
         assertEquals(location, returnedLocation);
     }
+
+    @Test
+    public void mockCreateLocation() {
+
+    }
 }
