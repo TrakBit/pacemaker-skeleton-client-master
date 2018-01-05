@@ -1,6 +1,5 @@
 package controllers;
 
-import static org.junit.Assert.assertEquals;
 import models.Activity;
 import models.LeaderBoard;
 import models.User;
@@ -8,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class LeaderBoardTest {
 
