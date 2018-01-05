@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.trakbit</groupId>
-  <artifactId>pacemaker-skeleton-client</artifactId>
+  <artifactId>pacemaker-skeleton-client-master</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
