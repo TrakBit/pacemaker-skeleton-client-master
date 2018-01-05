@@ -7,7 +7,6 @@ import models.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class LeaderBoardTest {

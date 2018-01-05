@@ -1,6 +1,7 @@
 package controllers;
 
 import static org.junit.Assert.*;
+
 import models.Activity;
 import models.Location;
 import models.User;
@@ -26,10 +27,5 @@ public class LocationTest {
         Location location = new Location(234.34, 23.5423);
         Location returnedLocation = pacemaker.addLocation(homer.id, activity.id, location.latitude, location.longitude);
         assertEquals(location, returnedLocation);
-    }
-
-    @Test
-    public void mockCreateLocation() {
-
     }
 }

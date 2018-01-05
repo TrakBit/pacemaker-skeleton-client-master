@@ -32,6 +32,13 @@ public class Activity implements Serializable {
     this.distance = distance;
   }
 
+  public Activity(String id,String type, String location, double distance) {
+    this.id = id;
+    this.type = type;
+    this.location = location;
+    this.distance = distance;
+  }
+
   public String getId() {
     return id;
   }
