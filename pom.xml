@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <name>pacemaker-skeleton</name>
-    <url>https://jitpack.io/#trakbit/pacemaker-skeleton-client-master/0.1</url>
+    <url>https://jitpack.io/#trakbit/pacemaker-skeleton-client-master/1.0</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
